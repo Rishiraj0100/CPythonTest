@@ -1,6 +1,6 @@
 import random
 
-from distutils.core import Extension, setup
+from setuptools import Extension, setup
 from Cython.Build import cythonize as _c
 
 
@@ -14,5 +14,5 @@ for i in range(5):
   v += ls[random.randint(0, len(ls)-1)]
 
 ext = Extension(name="tcy", sources=["tcy/__init__.pyx",])
-ext2 = Extension(name="hi", sources=["tcy/hi.pyx",])
+ext2 = Extension(name="tcy.hell", sources=["tcy/hi.pyx",])
 setup(ext_modules=[c(ext2), c(ext)], version=v,name="tcy")
