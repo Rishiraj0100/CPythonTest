@@ -13,6 +13,6 @@ for i in range(5):
 setup(
     name = "_tcy",
     version = v,
-    ext_modules = cythonize("tcy/*.py"),
+    ext_modules = cythonize("tcy/*.pyx"),
     zip_safe = False
 )
