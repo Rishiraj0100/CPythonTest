@@ -7,5 +7,5 @@ cdef double square_and_add (double x):
 cpdef print_result (double x):
     print("({} ^ 2) + {} = {}".format(x, x, square_and_add(x)))
 
-cpdef hi ():
+cpdef get_hi ():
   return hi()
