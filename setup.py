@@ -1,7 +1,7 @@
 import random
 import numpy as np
 
-from setuptools import setup, extension
+from setuptools import setup, Extension
 from Cython.Build import cythonize
 from Cython.Distutils import build_ext
 
