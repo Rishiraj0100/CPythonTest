@@ -20,7 +20,7 @@ for i in range(5):
   v += ls[random.randint(0, len(ls)-1)]
 
 setup(
-    name = "_tcy",
+    name = "tcy",
     version = v,
     ext_modules = [e],
     zip_safe = False,
