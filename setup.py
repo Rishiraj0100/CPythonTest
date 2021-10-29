@@ -8,7 +8,7 @@ v = "0.0.1a"
 ls = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 for i in range(5):
-  v += ls.index(random.randint(0, len(ls)-1))
+  v += ls[random.randint(0, len(ls)-1)]
 
 setup(
     name = "_tcy",
