@@ -1,5 +1,5 @@
-cdef string get_hi ():
+cdef string get_hi():
   return "Hi"
 
-cpdef hi ():
+cpdef hi():
   return get_hi()
