@@ -1,5 +1,5 @@
 from libc.math cimport pow
-from tcy.hi import *
+from tcy.hi cimport *
 
 cdef double square_and_add (double x):
     return pow(x, 2.0) + x
