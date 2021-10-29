@@ -1,8 +1,11 @@
 import random
 
 from distutils.core import Extension, setup
-from Cython.Build import cythonize as c
+from Cython.Build import cythonize as _c
 
+
+def c(_):
+  return _c(_)[0]
 
 v = "0.0.1a"
 ls = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
