@@ -15,4 +15,4 @@ for i in range(5):
 
 ext = Extension(name="tcy", sources=["tcy/__init__.pyx",])
 ext2 = Extension(name="tcy.hi", sources=["tcy/hi.pyx",])
-setup(ext_modules=[c(ext), c(ext2)], version=v,name="tcy")
+setup(ext_modules=[c(ext)], version=v,name="tcy")
