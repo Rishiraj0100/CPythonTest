@@ -1,3 +1,3 @@
-cdef string get_hi()
+cdef get_hi()
 
 cpdef hi()
