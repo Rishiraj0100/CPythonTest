@@ -1,4 +1,4 @@
-cdef double get_hi ():
+cdef string get_hi ():
   return "Hi"
 
 cpdef hi ():
