@@ -8,7 +8,7 @@ from Cython.Distutils import build_ext
 
 SRC_DIR="tcy"
 e = Extension(SRC_DIR + ".hi",
-                  [SRC_DIR + "/hi.pyx"],
+                  [SRC_DIR + "/hi.py"],
                   libraries=[],
                   include_dirs=[np.get_include()])
 
