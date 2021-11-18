@@ -23,6 +23,6 @@ static struct PyModuleDef helloworld_mod = {
 	helloworld_funcs
 };
 
-PyMODINIT_FUNC PyInit_t(void) {
+PyMODINIT_FUNC PyInit_hi(void) {
   return PyModule_Create(&helloworld_mod);
 }
