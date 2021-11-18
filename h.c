@@ -29,6 +29,6 @@ PyModuleDef helloworld_mod = {
 	NULL
 };
 
-PyMODINIT_FUNC PyInit_helloworld(void) {
+PyMODINIT_FUNC PyInit_t(void) {
 	return PyModule_Create(&helloworld_mod);
 }
