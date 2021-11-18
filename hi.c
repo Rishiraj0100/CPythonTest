@@ -1,8 +1,11 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
+static gethi() {
+  return "Hi";
+}
 static PyObject *hello(PyObject *self, PyObject *a) {
-  return PyLong_FromLong(3);
+  return gethi();
 }
 
 static PyMethodDef helloworld_funcs[] = {
