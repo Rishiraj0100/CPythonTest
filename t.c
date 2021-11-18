@@ -1,15 +1,15 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
-static PyObject *hello(PyObject *self) {
-  return PyUnicode_FromFormat("Hello C extension!");
+static PyObject *hello(PyObject *self, PyObject *a) {
+  return PyLong_FromLong(3);
 }
 
 static PyMethodDef helloworld_funcs[] = {
   {
     "hello",
     hello,
-    METH_NOARGS,
+    METH_VARARGS,
     "Hello world description."
   },
   {NULL, NULL, 0, NULL}
@@ -24,5 +24,5 @@ static struct PyModuleDef helloworld_mod = {
 };
 
 PyMODINIT_FUNC PyInit_t(void) {
-	return PyModule_Create(&helloworld_mod);
+  return PyModule_Create(&helloworld_mod);
 }
