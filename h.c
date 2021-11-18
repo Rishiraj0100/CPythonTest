@@ -1,6 +1,9 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
+PyObject * hello(PyObject * self) {
+	return PyUnicode_FromFormat("Hello C extension!");
+}
 
 char hellofunc_docs[] = "Hello world description.";
 
