@@ -22,6 +22,7 @@ typedef struct  {
 
   long size;
   int *data;
+  long state;
 } PyListObj;
 
 static PyObject *PyListObj_add(PyListObj *self) {
