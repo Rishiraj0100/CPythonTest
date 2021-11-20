@@ -24,7 +24,9 @@ typedef struct  {
 } PyListObj;
 
 static PyObject *PyListObj_add(PyListObj *self) {
-  self->num++;
+  int num = self->num;
+  num++;
+  self->num = num;
   return py_int(self->num);
 };
 static PyObject *PyListObj_sub(PyListObj *self) {
