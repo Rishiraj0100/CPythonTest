@@ -1,23 +1,36 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
-static PyObject *str(const char *txt) {
+static PyObject *py_str(const char *txt) {
   Py_BuildValue("s", txt);
 }
 
-static char *gethi() {
+static PyObject *py_int(const char *txt) {
+  Py_BuildValue("i", txt);
+}
+
+static char *mk_hi() {
   return "Hi";
 }
 
-static PyObject *hello(PyObject *self,) {
-  return str(gethi());
+static PyObject *hello(PyObject *self) {
+  return py_str(mk_hi());
 }
 
-static struct PyListObj {
+typedef struct  {
   PyObject_HEAD
 
   long size;
   int *data;
+} PyListObj;
+
+static PyObject *PyListObj_add(struct PyListObj *self) {
+  self->state++;
+  return py_int(self->state);
+}
+static PyObject *PyListObj_sub(struct PyListObj *self) {
+  self->state--;
+  return py_int(self->state);
 }
 
 static int PyListObj_init(struct PyListObj *self, PyObject *args) {
@@ -33,58 +46,35 @@ static int PyListObj_init(struct PyListObj *self, PyObject *args) {
         return -1;
     }
     self->size = size;
-
+    self->state = 0;
     return 0;
 }
-
+static PyObject *PyListObj_asn(struct PyListObj *self) {
+  return py_int(self->state);
+}
 static PyObject *PyListObj_repr(struct PyListObj *self) {
   char repr;
 
-  sprintf(repr, "[%d]", self->size);
-  return str(repr);
+  sprintf(repr, "size=%d", self->size);
+  return py_str(repr);
 }
 static PyMethodDef PyListObj_methods[] = {
-  {NULL}
-}
+  {"add", (PyCFunction) PyListObj_add, METH_NOARGS, "add 1"},
+  {"sub", (PyCFunction) PyListObj_sub, METH_NOARGS, "minus 1"},
+  {NULL}  /* Sentinel */
+};
+
 static PyTypeObject PyListObjType = {
-    PyVarObject_HEAD_INIT,
-    "tcy.List",
-    sizeof(struct PyListObj),
-    0,                         /*tp_itemsize*/
-    0, /*tp_dealloc*/
-    0,                         /*tp_print*/
-    0,                         /*tp_getattr*/
-    0,                         /*tp_setattr*/
-    0,                         /*tp_compare*/
-    (reprfunc)PyIntArrayObject_repr,                         /*tp_repr*/
-    0,                         /*tp_as_number*/
-    0,                         /*tp_as_sequence*/
-    0,                         /*tp_as_mapping*/
-    0,                         /*tp_hash */
-    0,                         /*tp_call*/
-    0,                         /*tp_str*/
-    0,                         /*tp_getattro*/
-    0,                         /*tp_setattro*/
-    0,                         /*tp_as_buffer*/
-    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE, /*tp_flags*/
-    "Integer array Class",           /* tp_doc */
-    0,                     /* tp_traverse */
-    0,                     /* tp_clear */
-    0,                     /* tp_richcompare */
-    0,                     /* tp_weaklistoffset */
-    0,                     /* tp_iter */
-    0,                     /* tp_iternext */
-    PyIntArrayObject_methods,             /* tp_methods */
-    0,             /* tp_members */
-    0,                         /* tp_getset */
-    0,                         /* tp_base */
-    0,                         /* tp_dict */
-    0,                         /* tp_descr_get */
-    0,                         /* tp_descr_set */
-    0,                         /* tp_dictoffset */
-    (initproc)PyIntArrayObject_init,      /* tp_init */
-    0,                         /* tp_alloc */
-    PyType_GenericNew,                 /* tp_new */
+    PyVarObject_HEAD_INIT(NULL,0)
+    .tp_name = "tcy.List",
+    .tp_basicsize = sizeof(struct PyListObj),
+    .tp_repr = (reprfunc)PyIntArrayObject_repr,
+    .tp_flags = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
+    .tp_doc = "Integer array Class",
+    .tp_methods = PyIntArrayObject_methods,
+    .tp_init = (initproc)PyIntArrayObject_init,
+    .tp_new = PyType_GenericNew,
+    .tp_as_number = PyListObj_asn,
 }
 
 static PyMethodDef helloworld_funcs[] = {
