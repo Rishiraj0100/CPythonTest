@@ -1,11 +1,14 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
-static gethi() {
+static PyObject *str(const char *txt) {
+  Py_BuildValue("s", txt);
+}
+static char *gethi() {
   return "Hi";
 }
 static PyObject *hello(PyObject *self, PyObject *a) {
-  return gethi();
+  return str(gethi());
 }
 
 static PyMethodDef helloworld_funcs[] = {
@@ -19,11 +22,11 @@ static PyMethodDef helloworld_funcs[] = {
 };
 
 static struct PyModuleDef helloworld_mod = {
-	PyModuleDef_HEAD_INIT,
-	"helloworld",
-	"This is hello world module.",
-	-1,
-	helloworld_funcs
+  PyModuleDef_HEAD_INIT,
+  "helloworld",
+  "This is hello world module.",
+ -1,
+  helloworld_funcs
 };
 
 PyMODINIT_FUNC PyInit_hi(void) {
