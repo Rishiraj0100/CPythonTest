@@ -97,6 +97,7 @@ static struct PyModuleDef helloworld_mod = {
 };
 
 PyMODINIT_FUNC PyInit_tcy(void) {
+  PyObject *m;
   if (PyType_Ready(&PyListObjType) < 0) {
     return NULL;
   }
