@@ -23,13 +23,13 @@ typedef struct  {
   int num;
 } PyListObj;
 
-static PyObject *PyListObj_add(PyListObj *self) {
+static PyObject *PyListObj_add(PyListObj *self, PyObject *args) {
   int num = 1;
 
   self->num = self->num + num;
   return py_int(self->num);
 };
-static PyObject *PyListObj_sub(PyListObj *self) {
+static PyObject *PyListObj_sub(PyListObj *self, PyObject *args) {
   self->num--;
   return py_int(self->num);
 };
@@ -55,6 +55,8 @@ static PyObject *PyListObj_repr(PyListObj *self) {
 static PyMethodDef PyListObj_methods[] = {
   {"add", (PyCFunction) PyListObj_add, METH_NOARGS, "add 1"},
   {"sub", (PyCFunction) PyListObj_sub, METH_NOARGS, "minus 1"},
+  {"__add__", (PyCFunction) PyListObj_add, METH_NOARGS, "add 1"},
+  {"__sub__", (PyCFunction) PyListObj_sub, METH_NOARGS, "minus 1"},
   {NULL}  /* Sentinel */
 };
 
