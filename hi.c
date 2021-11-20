@@ -81,11 +81,11 @@ static PyTypeObject PyListObjType = {
 static PyMethodDef helloworld_funcs[] = {
   {
     "hello",
-    hello,
+    (PyCFunction)hello,
     METH_NOARGS,
     "Hello world description."
   },
-  {NULL, NULL, 0, NULL}
+  {NULL}
 };
 
 static struct PyModuleDef helloworld_mod = {
