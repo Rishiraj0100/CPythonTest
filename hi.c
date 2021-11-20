@@ -2,11 +2,11 @@
 #include <Python.h>
 
 static PyObject *py_str(char *txt) {
-  Py_BuildValue("s", txt);
+  return Py_BuildValue("s", txt);
 }
 
 static PyObject *py_int(long *txt) {
-  Py_BuildValue("i", txt);
+  return Py_BuildValue("i", txt);
 }
 
 static char *mk_hi() {
