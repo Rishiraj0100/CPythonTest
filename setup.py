@@ -9,9 +9,9 @@ from setuptools import Extension as E, setup
 #   return _c(_)[0]
 
 v = "0.0.1a"
-ls = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ls = "1234567890"+"000001111222334"+"555556666777889"
 
-for i in range(5):
+for i in range(3):
   v += ls[random.randint(0, len(ls)-1)]
 
 # ext = Extension(name="tcy", sources=["tcy/__init__.pyx",])
