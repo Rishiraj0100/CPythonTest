@@ -5,7 +5,7 @@ static PyObject *py_str(char *txt) {
   return Py_BuildValue("s", txt);
 }
 
-static PyObject *py_int(long *txt) {
+static PyObject *py_int(long int *txt) {
   return Py_BuildValue("i", txt);
 }
 
