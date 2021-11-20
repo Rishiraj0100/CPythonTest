@@ -68,12 +68,12 @@ static PyMethodDef PyListObj_methods[] = {
 static PyTypeObject PyListObjType = {
     PyVarObject_HEAD_INIT(NULL,0)
     .tp_name = "tcy.List",
-    .tp_basicsize = sizeof(struct PyListObj),
-    .tp_repr = (reprfunc)PyIntArrayObject_repr,
+    .tp_basicsize = sizeof(PyListObj),
+    .tp_repr = (reprfunc)PyListObj_repr,
     .tp_flags = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
     .tp_doc = "Integer array Class",
-    .tp_methods = PyIntArrayObject_methods,
-    .tp_init = (initproc)PyIntArrayObject_init,
+    .tp_methods = PyListObj_methods,
+    .tp_init = (initproc)PyListObj_init,
     .tp_new = PyType_GenericNew,
     .tp_as_number = PyListObj_asn,
 };
