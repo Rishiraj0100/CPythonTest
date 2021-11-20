@@ -3,19 +3,19 @@
 
 static PyObject *py_str(char *txt) {
   return Py_BuildValue("s", txt);
-}
+};
 
 static PyObject *py_int(long txt) {
   return Py_BuildValue("i", txt);
-}
+};
 
 static char *mk_hi() {
   return "Hi";
-}
+};
 
 static PyObject *hello(PyObject *self) {
   return py_str(mk_hi());
-}
+};
 
 typedef struct  {
   PyObject_HEAD
@@ -28,11 +28,11 @@ typedef struct  {
 static PyObject *PyListObj_add(PyListObj *self) {
   self->state++;
   return py_int(self->state);
-}
+};
 static PyObject *PyListObj_sub(PyListObj *self) {
   self->state--;
   return py_int(self->state);
-}
+};
 
 static int PyListObj_init(PyListObj *self, PyObject *args) {
     long size=0;
@@ -52,13 +52,13 @@ static int PyListObj_init(PyListObj *self, PyObject *args) {
 }
 static PyObject *PyListObj_asn(PyListObj *self) {
   return py_int(self->state);
-}
+};
 static PyObject *PyListObj_repr(PyListObj *self) {
   char repr;
 
   sprintf(repr, "size=%d", self->size);
   return py_str(repr);
-}
+};
 static PyMethodDef PyListObj_methods[] = {
   {"add", (PyCFunction) PyListObj_add, METH_NOARGS, "add 1"},
   {"sub", (PyCFunction) PyListObj_sub, METH_NOARGS, "minus 1"},
@@ -76,7 +76,7 @@ static PyTypeObject PyListObjType = {
     .tp_init = (initproc)PyIntArrayObject_init,
     .tp_new = PyType_GenericNew,
     .tp_as_number = PyListObj_asn,
-}
+};
 
 static PyMethodDef helloworld_funcs[] = {
   {
@@ -105,7 +105,7 @@ PyMODINIT_FUNC PyInit_tcy(void) {
   if (m==NULL) {
     return NULL;
   }
-  Py_INCREF(&PyIntArrayType);
+  Py_INCREF(&PyListObj);
   PyModule_AddObject(m, "List", (PyObject *)&PyListObjType);
   return m;
 }
