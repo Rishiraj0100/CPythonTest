@@ -105,7 +105,7 @@ PyMODINIT_FUNC PyInit_tcy(void) {
   if (m==NULL) {
     return NULL;
   }
-  Py_INCREF(&PyListObj);
+  Py_INCREF(&PyListObjType);
   PyModule_AddObject(m, "List", (PyObject *)&PyListObjType);
   return m;
 }
