@@ -20,43 +20,34 @@ static PyObject *hello(PyObject *self) {
 typedef struct  {
   PyObject_HEAD
 
-  long size;
-  int *data;
-  long state;
+  int num;
 } PyListObj;
 
 static PyObject *PyListObj_add(PyListObj *self) {
-  self->state++;
-  return py_int(self->state);
+  self->num++;
+  return py_int(self->num);
 };
 static PyObject *PyListObj_sub(PyListObj *self) {
-  self->state--;
-  return py_int(self->state);
+  self->num--;
+  return py_int(self->num);
 };
 
 static int PyListObj_init(PyListObj *self, PyObject *args) {
-    long size=0;
+    int num;
 
-    if (!PyArg_ParseTuple(args, "l", &size)) {
-        return -1;
+    if (!PyArg_ParseTuple(args, "i", &num)) {
+        num = 0;
     }
-
-    self->data = calloc((size_t)size, sizeof(long));
-    if (NULL == self->data) {
-        PyErr_SetString(PyExc_MemoryError,"out of memory");
-        return -1;
-    }
-    self->size = size;
-    self->state = 0;
+    self->num = num;
     return 0;
 }
 static PyObject *PyListObj_asn(PyListObj *self) {
-  return py_int(self->state);
+  return py_int(self->num);
 };
 static PyObject *PyListObj_repr(PyListObj *self) {
   char repr;
 
-  sprintf(repr, "size=%d", self->size);
+  sprintf(repr, "%d", self->num);
   return py_str(repr);
 };
 static PyMethodDef PyListObj_methods[] = {
@@ -67,7 +58,7 @@ static PyMethodDef PyListObj_methods[] = {
 
 static PyTypeObject PyListObjType = {
     PyVarObject_HEAD_INIT(NULL,0)
-    .tp_name = "tcy.List",
+    .tp_name = "tcy.Number",
     .tp_basicsize = sizeof(PyListObj),
     .tp_repr = (reprfunc)PyListObj_repr,
     .tp_flags = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
@@ -106,6 +97,6 @@ PyMODINIT_FUNC PyInit_tcy(void) {
     return NULL;
   }
   Py_INCREF(&PyListObjType);
-  PyModule_AddObject(m, "List", (PyObject *)&PyListObjType);
+  PyModule_AddObject(m, "Number", (PyObject *)&PyListObjType);
   return m;
 }
