@@ -1,11 +1,11 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
-static PyObject *py_str(const char *txt) {
+static PyObject *py_str(char *txt) {
   Py_BuildValue("s", txt);
 }
 
-static PyObject *py_int(const char *txt) {
+static PyObject *py_int(char *txt) {
   Py_BuildValue("i", txt);
 }
 
@@ -24,16 +24,16 @@ typedef struct  {
   int *data;
 } PyListObj;
 
-static PyObject *PyListObj_add(struct PyListObj *self) {
+static PyObject *PyListObj_add(PyListObj *self) {
   self->state++;
   return py_int(self->state);
 }
-static PyObject *PyListObj_sub(struct PyListObj *self) {
+static PyObject *PyListObj_sub(PyListObj *self) {
   self->state--;
   return py_int(self->state);
 }
 
-static int PyListObj_init(struct PyListObj *self, PyObject *args) {
+static int PyListObj_init(PyListObj *self, PyObject *args) {
     long size=0;
 
     if (!PyArg_ParseTuple(args, "l", &size)) {
@@ -49,10 +49,10 @@ static int PyListObj_init(struct PyListObj *self, PyObject *args) {
     self->state = 0;
     return 0;
 }
-static PyObject *PyListObj_asn(struct PyListObj *self) {
+static PyObject *PyListObj_asn(PyListObj *self) {
   return py_int(self->state);
 }
-static PyObject *PyListObj_repr(struct PyListObj *self) {
+static PyObject *PyListObj_repr(PyListObj *self) {
   char repr;
 
   sprintf(repr, "size=%d", self->size);
