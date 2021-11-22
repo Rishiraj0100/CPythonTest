@@ -115,10 +115,10 @@ static PyMethodDef helloworld_funcs[] = {
 
 static struct PyModuleDef helloworld_mod = {
   PyModuleDef_HEAD_INIT,
-  "helloworld",
-  "This is hello world module.",
- -1,
-  helloworld_funcs
+  .m_name = "helloworld",
+  .m_doc = "This is hello world module.",
+  .m_size = -1,
+  .m_methods = helloworld_funcs
 };
 
 PyMODINIT_FUNC PyInit_tcy(void) {
