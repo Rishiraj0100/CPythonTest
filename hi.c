@@ -69,7 +69,10 @@ static PyObject *PyListObj_asn(PyListObj *self) {
 };
 
 static PyObject *PyListObj_as_s(PyListObj *self) {
-  return py_str(self->num);
+  char repr[];
+
+  sprintf(repr, "%d", self->num);
+  return py_str(repr);
 };
 static PyObject *PyListObj_repr(PyListObj *self) {
   char repr[];
@@ -78,14 +81,14 @@ static PyObject *PyListObj_repr(PyListObj *self) {
   return py_str(repr);
 };
 static PyMethodDef PyListObj_methods[] = {
-  {"add", (PyCFunction) PyListObj_add, METH_NOARGS, ".add(2)"},
-  {"sub", (PyCFunction) PyListObj_sub, METH_NOARGS, ".sub(3)"},
-  {"mul", (PyCFunction) PyListObj_mul, METH_NOARGS, ".mul(5)"},
-  {"div", (PyCFunction) PyListObj_div, METH_NOARGS, ".div(5)"},
-  {"__add__", (PyCFunction) PyListObj_add, METH_NOARGS, "+ 1"},
-  {"__sub__", (PyCFunction) PyListObj_sub, METH_NOARGS, "- 1"},
-  {"__mul__", (PyCFunction) PyListObj_mul, METH_NOARGS, "* 1"},
-  {"__truediv__", (PyCFunction) PyListObj_div, METH_NOARGS, "/ 5"},
+  {"add", (PyCFunction) PyListObj_add, METH_VARARGS, ".add(2)"},
+  {"sub", (PyCFunction) PyListObj_sub, METH_VARARGS, ".sub(3)"},
+  {"mul", (PyCFunction) PyListObj_mul, METH_VARARGS, ".mul(5)"},
+  {"div", (PyCFunction) PyListObj_div, METH_VARARGS, ".div(5)"},
+  {"__add__", (PyCFunction) PyListObj_add, METH_VARARGS, "+ 1"},
+  {"__sub__", (PyCFunction) PyListObj_sub, METH_VARARGS, "- 1"},
+  {"__mul__", (PyCFunction) PyListObj_mul, METH_VARARGS, "* 1"},
+  {"__truediv__", (PyCFunction) PyListObj_div, METH_VARARGS, "/ 5"},
   {NULL}  /* Sentinel */
 };
 
