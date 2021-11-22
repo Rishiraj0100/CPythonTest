@@ -5,7 +5,7 @@ static PyObject *py_str(char *txt) {
   return Py_BuildValue("s", txt);
 };
 
-static PyObject *py_int(long txt) {
+static PyObject *py_int(int txt) {
   return Py_BuildValue("i", txt);
 };
 
@@ -72,7 +72,7 @@ static PyObject *PyListObj_as_s(PyListObj *self) {
   return py_str(self->num);
 };
 static PyObject *PyListObj_repr(PyListObj *self) {
-  char repr;
+  char repr[];
 
   sprintf(repr, "%d", self->num);
   return py_str(repr);
@@ -132,7 +132,7 @@ PyMODINIT_FUNC PyInit_tcy(void) {
   }
   Py_INCREF(&PyListObjType);
   if (PyModule_AddObject(m, "Number", (PyObject *)&PyListObjType) < 0) {
-    Py_DECREF(&CustomType);
+    Py_DECREF(&PyListObjType);
     Py_DECREF(m);
     return NULL;
   }
