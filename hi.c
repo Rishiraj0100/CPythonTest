@@ -69,13 +69,13 @@ static PyObject *PyListObj_asn(PyListObj *self) {
 };
 
 static PyObject *PyListObj_as_s(PyListObj *self) {
-  char repr[];
+  char repr;
 
   sprintf(repr, "%d", self->num);
   return py_str(repr);
 };
 static PyObject *PyListObj_repr(PyListObj *self) {
-  char repr[];
+  char repr;
 
   sprintf(repr, "%d", self->num);
   return py_str(repr);
