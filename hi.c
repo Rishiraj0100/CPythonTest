@@ -21,9 +21,9 @@ typedef struct  {
   PyObject_HEAD
 
   int num;
-} PyListObj;
+} PyNumObj;
 
-static PyObject *PyListObj_add(PyListObj *self, PyObject *args) {
+static PyObject *PyNumObj_add(PyNumObj *self, PyObject *args) {
   int num = 1;
   if (!PyArg_ParseTuple(args, "i", &num)) {
     num = 1;
@@ -31,7 +31,7 @@ static PyObject *PyListObj_add(PyListObj *self, PyObject *args) {
   self->num = self->num + num;
   return py_int(self->num);
 };
-static PyObject *PyListObj_sub(PyListObj *self, PyObject *args) {
+static PyObject *PyNumObj_sub(PyNumObj *self, PyObject *args) {
   int num = 1;
   if (!PyArg_ParseTuple(args, "i", &num)) {
     num = 1;
@@ -39,7 +39,7 @@ static PyObject *PyListObj_sub(PyListObj *self, PyObject *args) {
   self->num = self->num - num;
   return py_int(self->num);
 };
-static PyObject *PyListObj_mul(PyListObj *self, PyObject *args) {
+static PyObject *PyNumObj_mul(PyNumObj *self, PyObject *args) {
   int num = 1;
   if (!PyArg_ParseTuple(args, "i", &num)) {
     num = 1;
@@ -47,7 +47,7 @@ static PyObject *PyListObj_mul(PyListObj *self, PyObject *args) {
   self->num = self->num * num;
   return py_int(self->num);
 };
-static PyObject *PyListObj_div(PyListObj *self, PyObject *args) {
+static PyObject *PyNumObj_div(PyNumObj *self, PyObject *args) {
   int num = 1;
   if (!PyArg_ParseTuple(args, "i", &num)) {
     num = 1;
@@ -55,7 +55,7 @@ static PyObject *PyListObj_div(PyListObj *self, PyObject *args) {
   self->num = self->num / num;
   return py_int(self->num);
 };
-static int PyListObj_init(PyListObj *self, PyObject *args) {
+static int PyNumObj_init(PyNumObj *self, PyObject *args) {
     int num;
 
     if (!PyArg_ParseTuple(args, "i", &num)) {
@@ -64,46 +64,46 @@ static int PyListObj_init(PyListObj *self, PyObject *args) {
     self->num = num;
     return 0;
 }
-static PyObject *PyListObj_asn(PyListObj *self) {
+static PyObject *PyNumObj_asn(PyNumObj *self) {
   return py_int(self->num);
 };
 
-static PyObject *PyListObj_as_s(PyListObj *self) {
+static PyObject *PyNumObj_as_s(PyNumObj *self) {
   char repr;
 
   sprintf(repr, "%d", self->num);
   return py_str(repr);
 };
-static PyObject *PyListObj_repr(PyListObj *self) {
+static PyObject *PyNumObj_repr(PyNumObj *self) {
   char repr;
 
   sprintf(repr, "%d", self->num);
   return py_str(repr);
 };
-static PyMethodDef PyListObj_methods[] = {
-  {"add", (PyCFunction) PyListObj_add, METH_VARARGS, ".add(2)"},
-  {"sub", (PyCFunction) PyListObj_sub, METH_VARARGS, ".sub(3)"},
-  {"mul", (PyCFunction) PyListObj_mul, METH_VARARGS, ".mul(5)"},
-  {"div", (PyCFunction) PyListObj_div, METH_VARARGS, ".div(5)"},
-  {"__add__", (PyCFunction) PyListObj_add, METH_VARARGS, "+ 1"},
-  {"__sub__", (PyCFunction) PyListObj_sub, METH_VARARGS, "- 1"},
-  {"__mul__", (PyCFunction) PyListObj_mul, METH_VARARGS, "* 1"},
-  {"__truediv__", (PyCFunction) PyListObj_div, METH_VARARGS, "/ 5"},
+static PyMethodDef PyNumObj_methods[] = {
+  {"add", (PyCFunction) PyNumObj_add, METH_VARARGS, ".add(2)"},
+  {"sub", (PyCFunction) PyNumObj_sub, METH_VARARGS, ".sub(3)"},
+  {"mul", (PyCFunction) PyNumObj_mul, METH_VARARGS, ".mul(5)"},
+  {"div", (PyCFunction) PyNumObj_div, METH_VARARGS, ".div(5)"},
+  {"__add__", (PyCFunction) PyNumObj_add, METH_VARARGS, "+ 1"},
+  {"__sub__", (PyCFunction) PyNumObj_sub, METH_VARARGS, "- 1"},
+  {"__mul__", (PyCFunction) PyNumObj_mul, METH_VARARGS, "* 1"},
+  {"__truediv__", (PyCFunction) PyNumObj_div, METH_VARARGS, "/ 5"},
   {NULL}  /* Sentinel */
 };
 
-static PyTypeObject PyListObjType = {
+static PyTypeObject PyNumObjType = {
     PyVarObject_HEAD_INIT(NULL,0)
     .tp_name = "tcy.Number",
-    .tp_basicsize = sizeof(PyListObj),
-    .tp_repr = (reprfunc)PyListObj_repr,
+    .tp_basicsize = sizeof(PyNumObj),
+    .tp_repr = (reprfunc)PyNumObj_repr,
     .tp_flags = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
-    .tp_doc = "Integer array Class",
-    .tp_methods = PyListObj_methods,
-    .tp_init = (initproc)PyListObj_init,
+    .tp_doc = "Custom Int Class",
+    .tp_methods = PyNumObj_methods,
+    .tp_init = (initproc)PyNumObj_init,
     .tp_new = PyType_GenericNew,
-    .tp_as_number = PyListObj_asn,
-    .tp_str = PyListObj_as_s,
+    .tp_as_number = PyNu.Obj_asn,
+    .tp_str = PyNumObj_as_s,
 };
 
 static PyMethodDef helloworld_funcs[] = {
@@ -126,16 +126,16 @@ static struct PyModuleDef helloworld_mod = {
 
 PyMODINIT_FUNC PyInit_tcy(void) {
   PyObject *m;
-  if (PyType_Ready(&PyListObjType) < 0) {
+  if (PyType_Ready(&PyNumObjType) < 0) {
     return NULL;
   }
   m = PyModule_Create(&helloworld_mod);
   if (m==NULL) {
     return NULL;
   }
-  Py_INCREF(&PyListObjType);
-  if (PyModule_AddObject(m, "Number", (PyObject *)&PyListObjType) < 0) {
-    Py_DECREF(&PyListObjType);
+  Py_INCREF(&PyNumObjType);
+  if (PyModule_AddObject(m, "Number", (PyObject *)&PyNumObjType) < 0) {
+    Py_DECREF(&PyNumObjType);
     Py_DECREF(m);
     return NULL;
   }
