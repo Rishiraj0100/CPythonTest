@@ -102,7 +102,7 @@ static PyTypeObject PyNumObjType = {
     .tp_methods = PyNumObj_methods,
     .tp_init = (initproc)PyNumObj_init,
     .tp_new = PyType_GenericNew,
-    .tp_as_number = PyNu.Obj_asn,
+    .tp_as_number = PyNumObj_asn,
     .tp_str = PyNumObj_as_s,
 };
 
