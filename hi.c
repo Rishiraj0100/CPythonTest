@@ -56,10 +56,10 @@ static PyObject *PyNumObj_div(PyNumObj *self, PyObject *args) {
   return py_int(self->num);
 };
 static int PyNumObj_init(PyNumObj *self, PyObject *args) {
-    int num;
+    int num = 0;
 
     if (!PyArg_ParseTuple(args, "i", &num)) {
-        num = 0;
+        num = 1;
     }
     self->num = num;
     return 0;
@@ -89,6 +89,9 @@ static PyMethodDef PyNumObj_methods[] = {
   {"__sub__", (PyCFunction) PyNumObj_sub, METH_VARARGS, "- 1"},
   {"__mul__", (PyCFunction) PyNumObj_mul, METH_VARARGS, "* 1"},
   {"__truediv__", (PyCFunction) PyNumObj_div, METH_VARARGS, "/ 5"},
+  {"__repr__", (PyCFunction) PyNumObj_repr, METH_NOARGS, ""},
+  {"__int__", (PyCFunction) PyNumObj_asn, METH_NOARGS, ""},
+  {"__str__", (PyCFunction) PyNumObj_as_s, METH_NOARGS, ""},
   {NULL}  /* Sentinel */
 };
 
@@ -96,14 +99,11 @@ static PyTypeObject PyNumObjType = {
     PyVarObject_HEAD_INIT(NULL,0)
     .tp_name = "tcy.Number",
     .tp_basicsize = sizeof(PyNumObj),
-    .tp_repr = (reprfunc)PyNumObj_repr,
-    .tp_flags = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
+    .tp_flags = Py_TPFLAGS_DEFAULT,
     .tp_doc = "Custom Int Class",
     .tp_methods = PyNumObj_methods,
-    .tp_init = (initproc)PyNumObj_init,
+    .tp_init = PyNumObj_init,
     .tp_new = PyType_GenericNew,
-    .tp_as_number = PyNumObj_asn,
-    .tp_str = PyNumObj_as_s,
 };
 
 static PyMethodDef helloworld_funcs[] = {
@@ -113,7 +113,7 @@ static PyMethodDef helloworld_funcs[] = {
     METH_NOARGS,
     "Hello world description."
   },
-  {NULL}
+  {NULL, NULL, 0, NULL} /* Sentinel */
 };
 
 static struct PyModuleDef helloworld_mod = {
@@ -126,11 +126,16 @@ static struct PyModuleDef helloworld_mod = {
 
 PyMODINIT_FUNC PyInit_tcy(void) {
   PyObject *m;
+  Py_INCREF(&PyNumObjType);
   if (PyType_Ready(&PyNumObjType) < 0) {
+    Py_DECREF(&PyNumObjType);
     return NULL;
   }
+  Py_INCREF(&helloworld_mod);
   m = PyModule_Create(&helloworld_mod);
+  Py_INCREF(m);
   if (m==NULL) {
+    Py_DECREF(m);
     return NULL;
   }
   Py_INCREF(&PyNumObjType);
