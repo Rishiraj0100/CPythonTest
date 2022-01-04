@@ -17,4 +17,4 @@ for i in range(3):
 # ext = Extension(name="tcy", sources=["tcy/__init__.pyx",])
 # ext2 = Extension(name="tcy.hell", sources=["tcy/hi.pyx",])
 
-setup(ext_modules=[E(name="tcy", sources=["hi.c"])], version=v,name="tcy")
+setup(ext_modules=[E(name="tcy", sources=["hi.c"])], version=v,name="tcy", packages=["tpy"])
