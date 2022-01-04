@@ -16,7 +16,7 @@ static PyObject *py_slf(int txt) {
   PyObject *as_int = py_int(txt);
   Py_INCREF(as_int);
   Py_INCREF(tcy__N);
-  return PyObject_CallOneArg(tcy__N, as_int);
+  return PyObject_CallObject(tcy__N, as_int);
 };
 
 static char *mk_hi() {
