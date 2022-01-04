@@ -84,12 +84,6 @@ static PyObject *PyNumObj_asn(PyNumObj *self) {
   return py_int(self->num);
 };
 
-static PyObject *PyNumObj_as_s(PyNumObj *self) {
-  PyObject *repr = py_int(self->num);
-  Py_INCREF(repr);
-  return PyUnicode_FromFormat("%S", repr);
-};
-
 static PyObject *PyNumObj_repr(PyNumObj *self) {
   PyObject *repr = py_int(self->num);
   Py_INCREF(repr);
@@ -101,9 +95,6 @@ static PyMethodDef PyNumObj_methods[] = {
   {"sub", (PyCFunction) PyNumObj_sub, METH_VARARGS, ".sub(3)"},
   {"mul", (PyCFunction) PyNumObj_mul, METH_VARARGS, ".mul(5)"},
   {"div", (PyCFunction) PyNumObj_div, METH_VARARGS, ".div(5)"},
-  {"__repr__", (PyCFunction) PyNumObj_repr, METH_NOARGS, ""},
-  {"__int__", (PyCFunction) PyNumObj_asn, METH_NOARGS, ""},
-  {"__str__", (PyCFunction) PyNumObj_as_s, METH_NOARGS, ""},
   {NULL}  /* Sentinel */
 };
 /*
@@ -120,6 +111,9 @@ static PyTypeObject PyNumObjType = {
     .tp_methods = PyNumObj_methods,
     .tp_init = PyNumObj_init,
     .tp_new = PyType_GenericNew,
+    .tp_repr = PyNumObj_repr,
+    .tp_str = PyNumObj_repr,
+    .tp_as_number = PyNumObj_asn,
 /*    .tp_as_number = &PyNumObj_as_n_,*/
 };
 
