@@ -108,7 +108,7 @@ static PyTypeObject PyNumObjType = {
     .tp_methods = PyNumObj_methods,
     .tp_init = PyNumObj_init,
     .tp_new = PyType_GenericNew,
-    .tp_as_number = PyNumObj_as_n_,
+    .tp_as_number = &PyNumObj_as_n_,
 };
 
 static PyMethodDef helloworld_funcs[] = {
