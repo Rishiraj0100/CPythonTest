@@ -6,7 +6,13 @@ static PyObject *py_str(char *txt) {
 };
 
 static PyObject *py_slf(int txt) {
-  return PyObject_CallOneArg(PyObject_GetAttrString(PyImport_ImportModule("tcy"),"Number"),py_int(txt));
+  PyObject *tcy_mod = PyImport_ImportModule("tcy");
+  Py_INCREF(tcy_mod);
+  PyObject *tcy__N = PyObject_GetAttrString(tcy_mod,"Number");
+  PyObject *as_int = py_int(txt);
+  Py_INCREF(as_int);
+  Py_INCREF(tcy__N);
+  return PyObject_CallOneArg(tcy__N, as_int);
 };
 
 static PyObject *py_int(int txt) {
