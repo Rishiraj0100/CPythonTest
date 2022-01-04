@@ -17,7 +17,7 @@ static PyObject *py_slf(int txt) {
   PyObject *arg = PyTuple_New(1);
   Py_INCREF(arg);
   Py_INCREF(as_int);
-  PyTuple_SetItem(args, 0, as_int);
+  PyTuple_SetItem(arg, 0, as_int);
   Py_INCREF(tcy__N);
   return PyObject_CallObject(tcy__N, arg);
 };
@@ -73,6 +73,8 @@ static int PyNumObj_init(PyNumObj *self, PyObject *args) {
 
     if (!PyArg_ParseTuple(args, "i", &num)) {
         num = 1;
+        self->num = num;
+        return 0;
     }
     self->num = num;
     return 0;
