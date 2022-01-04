@@ -95,6 +95,10 @@ static PyMethodDef PyNumObj_methods[] = {
   {NULL}  /* Sentinel */
 };
 
+static PyNumberMethods PyNumObj_as_n_ = {
+    .nb_add = PyNumObj_add,
+};
+
 static PyTypeObject PyNumObjType = {
     PyVarObject_HEAD_INIT(NULL,0)
     .tp_name = "tcy.Number",
@@ -104,6 +108,7 @@ static PyTypeObject PyNumObjType = {
     .tp_methods = PyNumObj_methods,
     .tp_init = PyNumObj_init,
     .tp_new = PyType_GenericNew,
+    .tp_as_number = PyNumObj_as_n_,
 };
 
 static PyMethodDef helloworld_funcs[] = {
