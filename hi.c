@@ -5,6 +5,10 @@ static PyObject *py_str(char *txt) {
   return Py_BuildValue("s", txt);
 };
 
+static PyObject *py_slf(int txt) {
+  return PyObject_CallOneArg(PyObject_GetAttrString(PyImport_ImportModule("tcy"),"Number"),py_int(txt));
+};
+
 static PyObject *py_int(int txt) {
   return Py_BuildValue("i", txt);
 };
@@ -29,7 +33,7 @@ static PyObject *PyNumObj_add(PyNumObj *self, PyObject *args) {
     num = 1;
   }
   self->num = self->num + num;
-  return py_int(self->num);
+  return py_slf(self->num);
 };
 static PyObject *PyNumObj_sub(PyNumObj *self, PyObject *args) {
   int num = 1;
@@ -37,7 +41,7 @@ static PyObject *PyNumObj_sub(PyNumObj *self, PyObject *args) {
     num = 1;
   }
   self->num = self->num - num;
-  return py_int(self->num);
+  return py_slf(self->num);
 };
 static PyObject *PyNumObj_mul(PyNumObj *self, PyObject *args) {
   int num = 1;
@@ -45,7 +49,7 @@ static PyObject *PyNumObj_mul(PyNumObj *self, PyObject *args) {
     num = 1;
   }
   self->num = self->num * num;
-  return py_int(self->num);
+  return py_slf(self->num);
 };
 static PyObject *PyNumObj_div(PyNumObj *self, PyObject *args) {
   int num = 1;
@@ -53,7 +57,7 @@ static PyObject *PyNumObj_div(PyNumObj *self, PyObject *args) {
     num = 1;
   }
   self->num = self->num / num;
-  return py_int(self->num);
+  return py_slf(self->num);
 };
 static int PyNumObj_init(PyNumObj *self, PyObject *args) {
     int num = 0;
@@ -85,10 +89,6 @@ static PyMethodDef PyNumObj_methods[] = {
   {"sub", (PyCFunction) PyNumObj_sub, METH_VARARGS, ".sub(3)"},
   {"mul", (PyCFunction) PyNumObj_mul, METH_VARARGS, ".mul(5)"},
   {"div", (PyCFunction) PyNumObj_div, METH_VARARGS, ".div(5)"},
-  {"__add__", (PyCFunction) PyNumObj_add, METH_VARARGS, "+ 1"},
-  {"__sub__", (PyCFunction) PyNumObj_sub, METH_VARARGS, "- 1"},
-  {"__mul__", (PyCFunction) PyNumObj_mul, METH_VARARGS, "* 1"},
-  {"__truediv__", (PyCFunction) PyNumObj_div, METH_VARARGS, "/ 5"},
   {"__repr__", (PyCFunction) PyNumObj_repr, METH_NOARGS, ""},
   {"__int__", (PyCFunction) PyNumObj_asn, METH_NOARGS, ""},
   {"__str__", (PyCFunction) PyNumObj_as_s, METH_NOARGS, ""},
