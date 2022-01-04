@@ -14,9 +14,12 @@ static PyObject *py_slf(int txt) {
   Py_INCREF(tcy_mod);
   PyObject *tcy__N = PyObject_GetAttrString(tcy_mod,"Number");
   PyObject *as_int = py_int(txt);
+  PyObject *arg = PyTuple_New(1);
+  Py_INCREF(arg);
   Py_INCREF(as_int);
+  PyTuple_SetItem(args, 0, as_int);
   Py_INCREF(tcy__N);
-  return PyObject_CallObject(tcy__N, as_int);
+  return PyObject_CallObject(tcy__N, arg);
 };
 
 static char *mk_hi() {
