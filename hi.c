@@ -94,11 +94,11 @@ static PyMethodDef PyNumObj_methods[] = {
   {"__str__", (PyCFunction) PyNumObj_as_s, METH_NOARGS, ""},
   {NULL}  /* Sentinel */
 };
-
+/*
 static PyNumberMethods PyNumObj_as_n_ = {
     .nb_add = PyNumObj_add,
 };
-
+*/
 static PyTypeObject PyNumObjType = {
     PyVarObject_HEAD_INIT(NULL,0)
     .tp_name = "tcy.Number",
