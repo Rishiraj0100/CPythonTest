@@ -79,17 +79,17 @@ static PyObject *PyNumObj_asn(PyNumObj *self) {
 };
 
 static PyObject *PyNumObj_as_s(PyNumObj *self) {
-  char repr;
-
-  sprintf(repr, "%d", self->num);
-  return py_str(repr);
+  PyObject *repr = py_int(self->num);
+  Py_INCREF(repr);
+  return PyUnicode_FromFormat("%S", repr);
 };
+
 static PyObject *PyNumObj_repr(PyNumObj *self) {
-  char repr;
-
-  sprintf(repr, "%d", self->num);
-  return py_str(repr);
+  PyObject *repr = py_int(self->num);
+  Py_INCREF(repr);
+  return PyUnicode_FromFormat("%S", repr);
 };
+
 static PyMethodDef PyNumObj_methods[] = {
   {"add", (PyCFunction) PyNumObj_add, METH_VARARGS, ".add(2)"},
   {"sub", (PyCFunction) PyNumObj_sub, METH_VARARGS, ".sub(3)"},
