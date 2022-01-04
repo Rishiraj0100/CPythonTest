@@ -19,6 +19,7 @@ static PyObject *py_slf(int txt) {
   Py_INCREF(as_int);
   PyTuple_SetItem(arg, 0, as_int);
   Py_INCREF(tcy__N);
+  Py_INCREF(arg);
   return PyObject_CallObject(tcy__N, arg);
 };
 
