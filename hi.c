@@ -99,7 +99,7 @@ static PyMethodDef PyNumObj_methods[] = {
   {"div", (PyCFunction) PyNumObj_div, METH_VARARGS, ".div(5)"},
   {NULL}  /* Sentinel */
 };
-
+/*
 static PyNumberMethods PyNumObj_as_n_ = {
     .nb_add = PyNumObj_add,
 };
