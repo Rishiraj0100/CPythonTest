@@ -32,11 +32,13 @@ static PyObject *hello(PyObject *self) {
 };
 
 typedef struct  {
-  PyObject_HEAD
+    PyLongObject super;
 
-  int num;
+//  PyObject_HEAD
+
+//  int num;
 } PyNumObj;
-
+/*
 static PyObject *PyNumObj_add(PyNumObj *self, PyObject *args) {
   int num = 1;
   if (!PyArg_ParseTuple(args, "i", &num)) {
@@ -97,7 +99,7 @@ static PyMethodDef PyNumObj_methods[] = {
   {"div", (PyCFunction) PyNumObj_div, METH_VARARGS, ".div(5)"},
   {NULL}  /* Sentinel */
 };
-/*
+
 static PyNumberMethods PyNumObj_as_n_ = {
     .nb_add = PyNumObj_add,
 };
@@ -108,13 +110,12 @@ static PyTypeObject PyNumObjType = {
     .tp_basicsize = sizeof(PyNumObj),
     .tp_flags = Py_TPFLAGS_DEFAULT,
     .tp_doc = "Custom Int Class",
-    .tp_methods = PyNumObj_methods,
+/*    .tp_methods = PyNumObj_methods,
     .tp_init = PyNumObj_init,
     .tp_new = PyType_GenericNew,
     .tp_repr = PyNumObj_repr,
     .tp_str = PyNumObj_repr,
-    .tp_as_number = PyNumObj_asn,
-/*    .tp_as_number = &PyNumObj_as_n_,*/
+    .tp_as_number = &PyNumObj_as_n_,*/
 };
 
 static PyMethodDef helloworld_funcs[] = {
