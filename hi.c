@@ -32,7 +32,7 @@ static PyObject *hello(PyObject *self) {
 };
 
 typedef struct  {
-    PyLongObject super;
+    PyLongObject long;
 
 //  PyObject_HEAD
 
